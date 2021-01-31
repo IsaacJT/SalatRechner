@@ -1,11 +1,20 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login" v-if="this.$store.state.access === null">Login</router-link>
-      <router-link to="/logout" v-if="this.$store.state.access !== null">Logout</router-link>
+      <span v-if="this.$store.state.access">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/users">Users</router-link> |
+        <router-link to="/logout">Logout</router-link>
+      </span>
+      <span v-if="!this.$store.state.access">
+        <router-link to="/login" v-if="this.$store.state.access === null"
+          >Login</router-link
+        >
+      </span>
     </div>
-    <router-view/>
+    <b-container class="bv-example-row bv-example-row-flex-cols">
+      <router-view />
+    </b-container>
   </div>
 </template>
 

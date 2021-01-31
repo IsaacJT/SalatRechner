@@ -1,23 +1,44 @@
 <template>
   <div class="login">
     <h1>Login</h1>
-    <form>
-      <input
-        type="text"
-        name="username"
-        v-model="input.username"
-        placeholder="Username"
-        v-on:keyup.enter="login()"
-      />
-      <input
-        type="password"
-        name="password"
-        v-model="input.password"
-        placeholder="Password"
-        v-on:keyup.enter="login()"
-      />
-      <button type="button" v-on:click="login()" :disabled="busy">Login</button>
-    </form>
+
+    <b-form @submit="login">
+      <b-form-group
+        id="username-group"
+        label="Username"
+        label-for="username-input"
+      >
+        <b-form-input
+          type="text"
+          name="username"
+          id="username-input"
+          v-model="input.username"
+          placeholder="Username"
+          v-on:keyup.enter="login()"
+          required
+        />
+      </b-form-group>
+
+      <b-form-group
+        id="password-group"
+        label="Password"
+        label-for="password-input"
+      >
+        <b-form-input
+          type="password"
+          name="password"
+          id="password-input"
+          v-model="input.password"
+          placeholder="Password"
+          v-on:keyup.enter="login()"
+          required
+        />
+      </b-form-group>
+      <b-button type="button" v-on:click="login()" :disabled="busy"
+        >Login</b-button
+      >
+    </b-form>
+    <br />
     <h2>{{ message }}</h2>
   </div>
 </template>
@@ -44,7 +65,7 @@ export default {
       axios
         .post(api + "token/", { username: username, password: password })
         .then(function(response) {
-          vue.$store.dispatch("login", response);
+          vue.$store.dispatch("login", response.data);
           vue.busy = false;
           vue.$router.replace({ name: "Home" });
         })
