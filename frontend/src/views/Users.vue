@@ -17,7 +17,6 @@ export default {
       let promise = axios
         .get(api + "users/", { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
-          console.log(response);
           return response.data.results;
         })
         .catch((error) => {

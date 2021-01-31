@@ -14,14 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from webauth import views
+from webauth import views as webauth_views
+from data import views as data_views
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView, TokenVerifyView)
 
 router = routers.DefaultRouter()
-router.register(r'api/users', views.UserViewSet)
+router.register(r'api/users', webauth_views.UserViewSet)
+router.register(r'api/weeks', data_views.WeekViewSet)
+router.register(r'api/days', data_views.DayViewSet)
+router.register(r'api/expenses', data_views.ExpenseViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

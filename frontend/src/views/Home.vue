@@ -1,18 +1,19 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    <WeekList />
   </div>
 </template>
 
 <script>
 import { checkLogin } from "@/common/auth.js";
+import WeekList from "@/components/WeekList.vue";
 export default {
   name: "Home",
-  components: {},
   beforeMount() {
-    checkLogin(this).catch((error) => {
-      console.log(error);
-    });
+    return checkLogin(this);
+  },
+  components: {
+    WeekList,
   },
 };
 </script>
